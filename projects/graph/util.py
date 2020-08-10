@@ -50,6 +50,20 @@ class Graph:
     def get_neighbors(self, vertex_id):
         return self.vertices[vertex_id]
 
+    def bft(self, starting_vertex_id):
+        q = Queue()
+        visited = set()
+        q.enqueue(starting_vertex_id)
+
+        while q.size() > 0:
+            v = q.dequeue()
+
+            if v not in visited:
+                visited.add(v)
+                print("visited",v)
+                for next_vert in self.get_neighbors(v):
+                    q.enqueue(next_vert)
+
 
 graph = Graph()  # Instantiate your graph
 graph.add_vertex('0')
@@ -61,3 +75,4 @@ graph.add_edge('1', '0')
 graph.add_edge('0', '3')
 graph.add_edge('3', '0')
 print(graph.vertices)
+graph.bft("0")
