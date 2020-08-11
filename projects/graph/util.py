@@ -74,9 +74,22 @@ class Graph:
             v = s.pop()
             if v not in visited:
                 visited.add(v)
-                print("Visited" , v)
+                print("Visited", v)
                 for next_vert in self.get_neighbors(v):
                     s.push(next_vert)
+
+    def dftS(self, starting_vertex_id):
+        s = Stack()
+        visited = set()
+        s.push(starting_vertex_id)
+
+        while s.size() > 0:
+            v = s.pop()
+            if v not in visited:
+                visited.add(v)
+                print("dftS", v)
+                for each in self.get_neighbors(v):
+                    s.push(each)
 
 
 graph = Graph()  # Instantiate your graph
@@ -89,11 +102,4 @@ graph.add_edge('1', '0')
 graph.add_edge('0', '3')
 graph.add_edge('3', '0')
 print(graph.vertices)
-
-print("Queue")
-print("------------")
-graph.bftQ("0")
-print("------------")
-print("Stack")
-print("------------")
-graph.bftS("0")
+graph.dftS("0")
