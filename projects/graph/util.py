@@ -91,6 +91,16 @@ class Graph:
                 for each in self.get_neighbors(v):
                     s.push(each)
 
+    def dft_recursive(self, starting_vertex_id,  visited=None):
+        print("RRRRR" , starting_vertex_id)
+        if visited is None:
+            visited = set()
+
+        visited.add(starting_vertex_id)
+        for each in self.vertices[starting_vertex_id]:
+            if each not in visited:
+                self.dft_recursive(each, visited)
+
 
 graph = Graph()  # Instantiate your graph
 graph.add_vertex('0')
@@ -102,4 +112,4 @@ graph.add_edge('1', '0')
 graph.add_edge('0', '3')
 graph.add_edge('3', '0')
 print(graph.vertices)
-graph.dftS("0")
+graph.dft_recursive("0")
