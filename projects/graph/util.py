@@ -33,73 +33,15 @@ class Stack():
     def size(self):
         return len(self.stack)
 
-#     def bft(self, starting_vertex_id):
-#         q = Queue()
-#         visited = set()
-#         q.enqueue(starting_vertex_id)
-
-#         while q.size() > 0:
-#             v = q.dequeue()
-
-#             if v not in visited:
-#                 visited.add(v)
-#                 print("visited", v)
-#                 for next_vert in self.get_neighbors(v):
-#                     q.enqueue(next_vert)
-
-#     def dft(self, starting_vertex_id):
-#         s = Stack()
-#         visited = set()
-#         s.push(starting_vertex_id)
-
-#         while s.size():
-#             v = s.pop()
-#             if v not in visited:
-#                 print("dft", v)
-#                 visited.add(v)
-#                 for each in self.get_neighbors(v):
-#                     s.push(each)
-
-#     def dft_recursive(self, node,  visited=set()):
-#         '''
-#         mark node as visited 
-#         loop over its neighbors
-#         call the function on each one of them
-#         '''
-#         visited.add(node)
-#         print("dft_recursive", node)
-
-#         # base case
-#         if len(self.get_neighbors(node)) == 0:
-#             # there is no leaf
-#             return
-#         for vert in self.get_neighbors(node):
-#             if vert not in visited:
-#                 self.dft_recursive(vert, visited)
-
-#     def dft_recursiveBeej(self, node,  visited=None):
-#         if visited is None:
-#             visited = set()
-#         visited.add(node)
-
-#         for n in self.vertices[n]:
-#             if n not in visited:
-#                 self.dft_recursiveBeej(node, visited)
 
 #     def bfs(self, starting_vertex, destination):
-#         # 1.create an empty queue
 #         q = Queue()
-#         # 2.create a set so we can add the path to
 #         visited = set()
 
-#         # 3.initialize the queue with with a starting path as array
 #         q.enqueue([starting_vertex])
 
-#         # 4. loop
 #         while q.size() > 0:
-#             # pop off the whole item
 #             path = q.dequeue()
-#             # last destination in the last
 #             last = path[-1]
 #             if last not in visited:
 #                 if last == destination:

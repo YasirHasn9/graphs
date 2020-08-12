@@ -60,8 +60,8 @@ class Graph:
         while s.size():
             ver = s.pop()
             if ver not in visited:
-                visited.add(ver)
                 print("Visited DFT,", ver)
+                visited.add(ver)
                 for neighbor in self.get_neighbors(ver):
                     s.push(neighbor)
 
@@ -76,10 +76,31 @@ class Graph:
             visited = set()
 
         visited.add(starting_vertex)
+        # this is a base case , here where we destroy the recursive
+        # because if the list of neighbors is empty is not gonna work
         for neighbor in self.get_neighbors(starting_vertex):
-            # this is a base case , here where we destroy the recursive
             if neighbor not in visited:
                 self.dft_recursive(neighbor, visited)
+
+    '''
+    # this is another way
+    def dft_recursive(self, start, visited=set()):
+        print(start)
+        visited.add(start)
+
+        for n in self.get_neighbors(start):
+            if n not in visited:
+                self.dft_recursive(n , visited)
+    '''
+    '''
+    def dft_r(self, start):
+        visited = set()
+        print(start)
+        visited.add(start)
+        for n in self.get_neighbors(start):
+            if n not in visited:
+                self.dft_r(n)
+    '''
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -87,7 +108,31 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        # since it is breadth first search , so we are gonna use queue
+        q = Queue()
+
+        # track node that we have visited
+        visited = set()
+        path = [starting_vertex]
+        q.enqueue(path)
+
+        while q.size():
+            # the current path is a list
+            current_path = q.dequeue()
+            current_node = current_path[-1]
+            # print("Node" , current_node)
+
+            if current_node == destination_vertex:
+                return current_path
+
+            if current_node not in visited:
+                visited.add(current_node)
+
+                for neighbor in self.get_neighbors(current_node):
+                    copy_path = current_path[:]
+                    copy_path.append(neighbor)
+
+                    q.enqueue(copy_path)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -152,26 +197,26 @@ if __name__ == '__main__':
     '''
     graph.bft(1)
 
-    '''
-    Valid DFT paths:
-        1, 2, 3, 5, 4, 6, 7
-        1, 2, 3, 5, 4, 7, 6
-        1, 2, 4, 7, 6, 3, 5
-        1, 2, 4, 6, 3, 5, 7
-    '''
+    # '''
+    # Valid DFT paths:
+    #     1, 2, 3, 5, 4, 6, 7
+    #     1, 2, 3, 5, 4, 7, 6
+    #     1, 2, 4, 7, 6, 3, 5
+    #     1, 2, 4, 6, 3, 5, 7
+    # '''
     graph.dft(1)
-    graph.dft_recursive(5)
+    graph.dft_recursive(3)
 
-    '''
-    Valid BFS path:
-        [1, 2, 4, 6]
-    '''
-    print(graph.bfs(1, 6))
+    # '''
+    # Valid BFS path:
+    #     [1, 2, 4, 6]
+    # '''
+    print("bfs", graph.bfs(1, 6))
 
-    '''
-    Valid DFS paths:
-        [1, 2, 4, 6]
-        [1, 2, 4, 7, 6]
-    '''
-    print(graph.dfs(1, 6))
-    print(graph.dfs_recursive(1, 6))
+    # '''
+    # Valid DFS paths:
+    #     [1, 2, 4, 6]
+    #     [1, 2, 4, 7, 6]
+    # '''
+    # print(graph.dfs(1, 6))
+    # print(graph.dfs_recursive(1, 6))
