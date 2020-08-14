@@ -22,7 +22,7 @@ class Graph:
             raise IndexError("nonexited node")
 
     '''
-    since we have vertice in the graph we need to check how many neighbors 
+    since we have vertice in the graph we need to check how many neighbors
     each vertice(node) have ?
     '''
 
@@ -51,7 +51,53 @@ class Graph:
                 # get all its neighbors
                 for next_vert in self.get_neighbors(v):
                     q.enqueue(next_vert)
-        print(q.storage)
+
+    def bfs(self, startVert):
+        '''
+        You can see that we start with a graph and the vertex 
+        we will start on. The very first thing we do is go through 
+        each of the vertexes in the graph and mark them with the color white.
+        This means that at the outset, we mark all the verts as unvisited.
+         '''
+        q = Queue()
+        for v in self.vertices:
+            # mark them as unvisited
+            self.vertices[v].update({"color": "white"})
+
+        '''
+        Next, we mark the starting vert as gray. This means we are 
+        exploring the starting verts’ neighbors. We also enqueue 
+        the starting vert which means it will be the first vert 
+        we look at once we enter the while loop.
+        '''
+        self.vertices[startVert].update({"color": "gray"})
+        q.enqueue(startVert)
+
+        while q.size() > 0:
+            '''
+            The condition we check at the outset of each while loop is 
+            if the queue is not empty. If it is not empty, we peek at 
+            the first item in the queue by storing it in a variable.
+            '''
+            u = q.storage[0]
+            for v in self.get_neighbors(u):
+                '''
+                Then, we loop through each of that vert’s neighbors and: - 
+                We check if it is unvisited (the color white). - 
+                If it is unvisited, we mark it as gray (meaning we will explore its neighbors).
+                 - We enqueue the vert.
+                '''
+                if v.color == "white":
+                    v.color = "gray"
+                    q.enqueue(v)
+
+            '''
+            Next, we dequeue the current 
+            vert we’ve been exploring and mark that 
+            vert as black (marking it as visited).
+            '''
+            q.dequeue()
+            u.color = "black"  # visited
 
 
 class Queue:
@@ -89,39 +135,5 @@ g.add_edges("B", "C")
 g.add_edges("C", "D")
 g.add_edges("D", "C")
 print(g.vertices)
-g.bft("B")
-
-
-# class Graph:
-#     def __init__(self):
-#         self.vertice = {}
-
-#     def add_vertex(self, vertex_id):
-#         self.vertice[vertex_id] = set()
-
-#     def edges(self, v1, v2):
-#         if v1 in self.vertice and v2 in self.vertice:
-#             self.vertice[v1].add(v2)
-#         else:
-#             raise IndexError("Nonexited")
-
-#     def get_neighbors(self, vertex_id):
-#         return self.vertice[vertex_id]
-
-#     def bft(self, starting_vertex_id):
-#         # declear en empty q
-#         q = Queue()
-#         # push the visited node in the set so we can check them
-#         visited = set()
-
-#         # initialized the queue with one node
-#         v = q.enqueue(starting_vertex_id)
-
-#         # since we have something the queue then we can loop over it
-#         while q.size() > 0:
-#             # then dequeue the first node and add it to the visited
-#             v = q.dequeue()
-#             if v not in visited:
-#                 visited.add(v)
-#                 for next_vert in self.get_neighbors(v):
-#                     q.enqueue(next_vert)
+# g.bft("B")
+g.bfs("B")
